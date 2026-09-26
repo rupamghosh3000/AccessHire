@@ -53,7 +53,17 @@ app.use(apiPrefix, resumeRoutes);
 app.use(apiPrefix, aiRoutes);
 app.use(apiPrefix, barrierRoutes);
 app.use(apiPrefix, previewRoutes);
-app.use(apiPrefix, applicationRoutes);
+// Serve static client SPA build in production
+if (config.nodeEnv === 'production') {
+  const clientBuildPath = path.resolve(process.cwd(), 'client/dist');
+  app.use(express.static(clientBuildPath));
+  app.get('*', (req, res, next) => {
+    if (req.path.startsWith('/api') || req.path.startsWith('/uploads')) {
+      return next();
+    }
+    res.sendFile(path.resolve(clientBuildPath, 'index.html'));
+  });
+}
 
 // Error handlers
 app.use(notFound);
