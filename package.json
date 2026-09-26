@@ -1,0 +1,21 @@
+{
+  "name": "accesshire-ai",
+  "version": "1.0.0",
+  "private": true,
+  "description": "AccessHire AI — Track PS003: Accessible Job Application Assistant",
+  "scripts": {
+    "setup": "npm install --prefix server && npm install --prefix client",
+    "dev:server": "npm run dev --prefix server",
+    "dev:client": "npm run dev --prefix client",
+    "start": "npm run start --prefix server",
+    "seed": "npm run seed --prefix server",
+    "test": "npm run test --prefix server && npm run test --prefix client"
+  },
+  "workspaces": [
+    "client",
+    "server"
+  ],
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
