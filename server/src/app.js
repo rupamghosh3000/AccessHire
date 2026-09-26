@@ -15,6 +15,12 @@ import barrierRoutes from './routes/barrierRoutes.js';
 import previewRoutes from './routes/previewRoutes.js';
 import applicationRoutes from './routes/applicationRoutes.js';
 
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const clientBuildPath = path.resolve(__dirname, '../../client/dist');
+
 const app = express();
 
 // Security and utility middleware
@@ -53,9 +59,10 @@ app.use(apiPrefix, resumeRoutes);
 app.use(apiPrefix, aiRoutes);
 app.use(apiPrefix, barrierRoutes);
 app.use(apiPrefix, previewRoutes);
+app.use(apiPrefix, applicationRoutes);
+
 // Serve static client SPA build in production
 if (config.nodeEnv === 'production') {
-  const clientBuildPath = path.resolve(process.cwd(), 'client/dist');
   app.use(express.static(clientBuildPath));
   app.get('*', (req, res, next) => {
     if (req.path.startsWith('/api') || req.path.startsWith('/uploads')) {
