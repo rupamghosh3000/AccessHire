@@ -4,7 +4,7 @@
   "private": true,
   "description": "AccessHire AI — Track PS003: Accessible Job Application Assistant",
   "scripts": {
-    "setup": "npm install --prefix server && npm install --prefix client",
+    "setup": "npm install --include=dev --prefix server && npm install --include=dev --prefix client",
     "build": "npm run build --prefix client",
     "render-build": "npm run setup && npm run build",
     "dev:server": "npm run dev --prefix server",
